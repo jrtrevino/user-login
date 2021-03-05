@@ -14,6 +14,7 @@ a username must be:
 - cannot contain <, >, or :. (2)
 """
 import re
+import bcrypt
 
 # Returns true if password meets all requirements listed above. False if not.
 def check_valid_password(password):
@@ -27,6 +28,14 @@ def check_valid_password(password):
     if req2lower == None or req2upper == None or req3 == None or req4 == None:
         return False
     return True
+
+
+# takes a binary string password (utf-8), applies salt then hashes using bcrypt
+def gen_secure_password(password):
+    salt = bcrypt.gensalt(rounds=12)
+    hashed_pw = bcrypt.hashpw(password, salt)
+    return hashed_pw
+
 
 """
 Determines if a username can be used for an account. Checks if the username
@@ -52,4 +61,17 @@ def check_if_username_exists(username):
     for line in users:
         if username.lower().rstrip() in line.split(":")[0]:
             return True
+    return False
+
+
+def create_account(username, password):
+    if check_valid_username(username) and check_valid_password(password):
+        print("Valid username and password. Creating account!")
+        password = gen_secure_password(password.encode('utf-8'))
+        account_file = open('./accounts/accounts.txt', 'a+')
+        account_file.write("{" + username + ":" + password.decode('utf-8') + "}")
+        return True
+    else:
+        print("Invalid username and password. Try again")
+
     return False
