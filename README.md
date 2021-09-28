@@ -30,6 +30,11 @@ $ npm install json-server
 
 
 ## Running
+To start the json-server, type:
+```
+json-server db.json
+```
+
 To run this program, type:
 
 ```
