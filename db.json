@@ -1,0 +1,22 @@
+{
+  "accounts": [
+    {
+      "id": "evinreud",
+      "password": "$2b$12$yL9wNgarAqO7AOasLDfr5OYX6kr9lxrh32hYJFRUtXbIfb64QuySi"
+    },
+    {
+      "id": "jrtrevino",
+      "password": "$2b$12$Sl3tXUmTOfaX8GpGeo1E0ePLSpUh09rvsAF40wPlkE2O7YC81tTdu"
+    },
+    {
+      "id": "evinreud123",
+      "password": "$2b$12$NtqmlUVqbNBNw5KQTW0bJ.m8xkg2zXiTGDK0WkR0doKFkObH4XH.6"
+    }
+  ],
+  "passwords": [
+    {
+      "id": "$2b$12$yL9wNgarAqO7AOasLDfr5OYX6kr9lxrh32hYJFRUtXbIfb64QuySi",
+      "username": "evinreud123"
+    }
+  ]
+}

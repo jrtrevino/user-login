@@ -15,8 +15,13 @@ a username must be:
 """
 import re
 import bcrypt
+import requests
+import json
 
+db_url = "http://localhost:3000/"
 # Returns true if password meets all requirements listed above. False if not.
+
+
 def check_valid_password(password):
     if len(password) < 8:
         return False
@@ -25,6 +30,7 @@ def check_valid_password(password):
     req2upper = re.search('[A-Z]', password)
     req3 = re.search('[0-9]', password)
     req4 = re.search('[^A-Za-z0-9<>]', password)
+    # print(req2lower, req2upper, req3, req4)
     if req2lower == None or req2upper == None or req3 == None or req4 == None:
         return False
     return True
@@ -41,6 +47,8 @@ def gen_secure_password(password):
 Determines if a username can be used for an account. Checks if the username
 follows the requirements and is not already in the database.
 """
+
+
 def check_valid_username(username):
     username = username.rstrip()
     if len(username) < 4:
@@ -55,22 +63,28 @@ def check_valid_username(username):
 Determines if username is already in database. Returns true if username is
 in the database, else false.
 """
+
+
 def check_if_username_exists(username):
-    account_file = open('./accounts/accounts.txt', 'r')
-    users = account_file.readlines()
-    for line in users:
-        if username.lower().rstrip() in line.split(":")[0]:
-            return True
-    return False
+    req = requests.get(db_url + "accounts/{}".format(username))
+    if (req.status_code == 404):
+        return False
+    return True
 
 
 def create_account(username, password):
     if check_valid_username(username) and check_valid_password(password):
         print("Valid username and password. Creating account!")
         password = gen_secure_password(password.encode('utf-8'))
-        account_file = open('./accounts/accounts.txt', 'a+')
-        account_file.write("{" + username + ":" + password.decode('utf-8') + "}")
-        return True
+        data_dict = {'id': username, 'password': password}
+        req = requests.post(
+            db_url + "accounts", data=data_dict)
+        if req.status_code == 201:
+            print("Account Created")
+            return True
+        else:
+            print("Could not create account, try again later.")
+            return False
     else:
         print("Invalid username and password. Try again")
 
