@@ -6,7 +6,18 @@ On sign in, if an invalid username or password is inputted, an error message is 
 
 On account creation, if a username is already taken, an error is thrown.
 
-## dependencies
+## Password/Account Requirements
+A valid password follows these characteristics:
+  - A minimum of 8 characters (1)
+  - At least 1 uppercase and lowercase letter (2)
+  - At least 1 numerical character (3)
+  - At least 1 special character. < or > is not a valid special character. (4)
+
+A valid account name follows these characteristics:
+  - Longer than three characters (1)
+  - Cannot contain <, >, or :. (2)
+
+## Dependencies
 This module requires bcrypt for hashing and salting. To install, type:
 ```
 $ python -m pip install bcrypt
