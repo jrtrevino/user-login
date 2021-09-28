@@ -41,3 +41,6 @@ To run this program, type:
 python3 src/ui/user_prompts.py
 ```
 [json-server]: https://www.npmjs.com/package/json-server
+
+### Notes
+This program, by no means, represents how an organization should store passwords. This was just a fun project to see the process of salting and hashing passwords, along with retrieving information from a local database. Have fun!
